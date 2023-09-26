@@ -12,7 +12,7 @@ n = len(data[data['special_proposition'] > 0])
 x = len(data[(data['special_proposition'] > 0) & (data['return'] == True)])
 
 probability = x / n
-print(f"Ймовірність повернення товару зі спеціальної пропозиції: {probability:.2%}")
+print(f"Probability of returning goods from a special offer: {probability:.2%}")
 
 
 confidence_levels = [0.95, 0.99] # Levels of trust
@@ -26,16 +26,12 @@ for confidence_level in confidence_levels:
     confidence_interval = (probability - margin_of_error, probability + margin_of_error)
     confidence_intervals.append(confidence_interval)
 
-
 for i, confidence_level in enumerate(confidence_levels):
     print(f"Confidence intervals {confidence_level * 100}%: {confidence_intervals[i]}")
 
 
-plt.figure(figsize=(10, 6))
-plt.bar([f"{int(confidence_level * 100)}%" for confidence_level in confidence_levels], [interval[1] - interval[0] for interval in confidence_intervals], alpha=0.7)
-plt.title('Confidence intervals for the probability of product return')
-plt.ylabel('The width of the confidence interval')
-plt.show()
-
-
 print("--------------- Section 2 ---------------")
+
+special_proposition_data = data[data['special_proposition'] > 0]
+average_cost = special_proposition_data['total'].sum() / len(special_proposition_data)
+print(f"Average price with a special offer (μ): {average_cost}")
